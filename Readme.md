@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Надежда Рымарева](https://up.htmlacademy.ru/javascript/26/user/1730541).
-* Наставник: `Неизвестно`.
+* Наставник: [Анастасия Васинская](https://htmlacademy.ru/profile/vanastasiya).
 
 ---
 
