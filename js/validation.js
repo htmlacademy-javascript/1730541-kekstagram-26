@@ -23,7 +23,7 @@ const hashtagsFeatures = {
   IS_SPACE: /.#/g,
 };
 
-//Сообщания об ошибках
+//Сообщения об ошибках
 const errorMessages = {
   COMMENT_LONG: `Комментарий не может составлять больше ${CommentsFeatures.MAX_LENGTH} символов`,
   SPACE_HASHTAGS: 'Хэш-теги должны разделяться пробелами',
