@@ -21,7 +21,7 @@ const successTemplate = document.querySelector('#success').content.querySelector
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
 const fileChooser = document.querySelector('.img-upload__input');
 
-
+//Подстановка пользовательского изображения
 const uploadImage = () => {
   fileChooser.addEventListener('change', () => {
     const file = fileChooser.files[0];

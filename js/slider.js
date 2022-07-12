@@ -6,7 +6,7 @@ const valueElement = document.querySelector('.effect-level__value');
 const effectsList = document.querySelector('.effects__list');
 const sliderBlock = document.querySelector('.effect-level');
 
-//Создание объекта дяннах с парамтерами эффектов
+//Создание объекта данных с парамтерами эффектов
 const effects = {
   none: {
     range: {
@@ -71,24 +71,26 @@ const effects = {
 };
 
 // Создание слайдера регулировки эффектов
-noUiSlider.create(sliderElement, {
-  range: {
-    min: 0,
-    max: 1,
-  },
-  start: 0,
-  step: 0.1,
-  connect: 'lower',
-  format: {
-    to: (value) => {
-      if (Number.isInteger(value)) {
-        return value.toFixed(0);
-      }
-      return value.toFixed(1);
+const initEffects = () => {
+  noUiSlider.create(sliderElement, {
+    range: {
+      min: 0,
+      max: 1,
     },
-    from: (value) => parseFloat(value)
-  }
-});
+    start: 0,
+    step: 0.1,
+    connect: 'lower',
+    format: {
+      to: (value) => {
+        if (Number.isInteger(value)) {
+          return value.toFixed(0);
+        }
+        return value.toFixed(1);
+      },
+      from: (value) => parseFloat(value)
+    }
+  });
+};
 
 // Создаем событие клика на радиокнопку и выбор эффекта
 let effectFilter;
@@ -110,3 +112,5 @@ effectsList.addEventListener('click', (evt) => {
     });
   }
 });
+
+export { initEffects };
