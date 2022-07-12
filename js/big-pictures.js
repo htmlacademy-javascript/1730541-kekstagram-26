@@ -1,8 +1,8 @@
-import {isEscapeEvent} from './util.js';
+import { isEscapeEvent } from './util.js';
 
 //Описание переменных
 const MAX_COMMENT = 5;
-const bigPicture =  document.querySelector('.big-picture');
+const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = document.querySelector('.big-picture__img');
 const socialCommentCount = document.querySelector('.social__comment-count');
 const body = document.querySelector('body');
@@ -42,7 +42,7 @@ const ShowBigPhoto = (bigPhoto) => {
   bigPicture.querySelector('.social__caption').textContent = bigPhoto.description;
   bigPicture.classList.remove('hidden');
   document.addEventListener('keydown', onBigPictureEscPress);
-  bigPictureClose.addEventListener('click', onBigPictureCloseClick);socialCommentCount.firstChild.textContent = `${MAX_COMMENT} из `;
+  bigPictureClose.addEventListener('click', onBigPictureCloseClick); socialCommentCount.firstChild.textContent = `${MAX_COMMENT} из `;
   commentsArrayData = bigPhoto.comments.slice();
   commentsArrayDataRemain = commentsArrayData.slice(MAX_COMMENT);
   if (bigPhoto.comments.length <= MAX_COMMENT) {
@@ -55,16 +55,16 @@ const ShowBigPhoto = (bigPhoto) => {
       commentsArrayDataMax.push(commentsArrayData[i]);
     }
     createCommentsFragment(commentsArrayDataMax);
-    commentsLoader.classList.remove('hidden');
+    commentsLoader.classList.toggle('hidden', bigPhoto.comments.length === commentsArrayDataRemain.length);
     commentsLoader.addEventListener('click', onCommentsLoaderClick);
   }
 };
 
 //Проверка текущего числа комментариев
-const getCurentCommentCount = (comments) => comments ? comments.children.length: 0;
+const getCurentCommentCount = (comments) => comments ? comments.children.length : 0;
 
 //Обработчик загрузки комментариев
-function onCommentsLoaderClick () {
+function onCommentsLoaderClick() {
   createCommentsFragment(commentsArrayDataRemain);
   socialCommentCount.firstChild.textContent = `${getCurentCommentCount(commentsList)} из `;
 }
@@ -78,13 +78,13 @@ const closeBigPicture = () => {
 };
 
 // Функция закрытия окна полноразмерного изображения по Escape
-function onBigPictureEscPress (evt) {
+function onBigPictureEscPress(evt) {
   isEscapeEvent(evt, closeBigPicture);
 }
 
 //Обработчик закрытия окна кликом по иконке закрытия
-function onBigPictureCloseClick () {
+function onBigPictureCloseClick() {
   closeBigPicture();
 }
 
-export {ShowBigPhoto};
+export { ShowBigPhoto };
