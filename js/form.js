@@ -43,6 +43,7 @@ const openImageEditOverlay = () => {
   document.addEventListener('keydown', onImageOverlayEscPress);
   editImageCloseButton.addEventListener('click', onImageOverlayClose);
   imageScaleValue.value = `${DEFAULT_SCALE_VALUE}%`;
+  getScaleImageTransform();
   image.style.filter = '';
   sliderBlock.classList.add('hidden');
 };
