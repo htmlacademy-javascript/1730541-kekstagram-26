@@ -1,7 +1,9 @@
-import {isEscapeEvent} from './util.js';
-import {getScaleImageTransform} from './scale.js';
+import { isEscapeEvent } from './util.js';
+import { getScaleImageTransform } from './scale.js';
 
-//Описание переменныхx
+//Описание переменных
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png', 'heic'];
+
 const body = document.body;
 const uploadFileInput = document.querySelector('#upload-file');
 const uploadForm = document.querySelector('.img-upload__form');
@@ -16,9 +18,20 @@ const image = imagePreview.querySelector('img');
 const sliderBlock = document.querySelector('.effect-level');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
+const fileChooser = document.querySelector('.img-upload__input');
+
+const uploadImage = () => {
+  const file = fileChooser.files[0];
+  const fileName = file.name.toLowerCase();
+
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+  if (matches) {
+    imagePreview.src = URL.createObjectURL(file);
+  }
+};
 
 //Функция открытия окна редактирования
-const openImageEditOverlay = () => {
+const openImageEditOverlay = (evt) => {
   body.classList.add('modal-open');
   editImageOverlay.classList.remove('hidden');
   document.addEventListener('keydown', onImageOverlayEscPress);
@@ -27,10 +40,11 @@ const openImageEditOverlay = () => {
   getScaleImageTransform();
   image.style.filter = '';
   sliderBlock.classList.add('hidden');
+  uploadImage(evt);
 };
 
 //Обработчик открытия окна редактирования
-function onUploadChange () {
+function onUploadChange() {
   openImageEditOverlay();
 }
 uploadFileInput.addEventListener('change', onUploadChange);
@@ -45,12 +59,12 @@ const editImageOverlayClose = () => {
 };
 
 //Обработчик закрытия окна редактирования
-function onImageOverlayClose () {
+function onImageOverlayClose() {
   editImageOverlayClose();
 }
 
 //Функция закрытия окна редактора по ESC
-function onImageOverlayEscPress (evt) {
+function onImageOverlayEscPress(evt) {
   const active = document.activeElement;
   if (inputHashtags !== active && commentTextarea !== active) {
     isEscapeEvent(evt, editImageOverlayClose);
@@ -80,7 +94,7 @@ const closeSuccessMessage = () => {
 };
 
 //Обработчик закрытия сообщения об успешной отправке
-function onSuccessMessageCloseClick () {
+function onSuccessMessageCloseClick() {
   closeSuccessMessage();
 }
 
@@ -114,7 +128,7 @@ const blockSubmitButton = () => {
 };
 
 // Обработчик закрытия сообщения об успехе по Escape
-function onSuccessMessageEscPress (evt) {
+function onSuccessMessageEscPress(evt) {
   isEscapeEvent(evt, closeSuccessMessage);
 }
 
@@ -134,12 +148,12 @@ const closeErrorMessage = () => {
 };
 
 // Обработчик закрытия сообщения об ошибке
-function onErrorMessageCloseClick () {
+function onErrorMessageCloseClick() {
   closeErrorMessage();
 }
 
 // Обработчик закрытия сообщения об ошибке по Escape
-function onErrorMessageEscPress (evt) {
+function onErrorMessageEscPress(evt) {
   isEscapeEvent(evt, closeErrorMessage);
 }
 
@@ -158,4 +172,4 @@ const onErrorCloseForm = () => {
   });
 };
 
-export {onImageOverlayClose, editImageOverlayClose, unblockSubmitButton, onErrorCloseForm, blockSubmitButton, onSuccessCloseForm};
+export { onImageOverlayClose, editImageOverlayClose, unblockSubmitButton, onErrorCloseForm, blockSubmitButton, onSuccessCloseForm };
