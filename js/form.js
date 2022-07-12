@@ -1,5 +1,6 @@
 import { isEscapeEvent } from './util.js';
 import { getScaleImageTransform } from './scale.js';
+import { onFilterButtonChange } from './slider.js';
 
 //Описание переменных
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png', 'heic'];
@@ -41,6 +42,7 @@ const openImageEditOverlay = () => {
     uploadImage();
     onUploadChange();
     getScaleImageTransform();
+    onFilterButtonChange();
   });
   body.classList.add('modal-open');
   editImageOverlay.classList.remove('hidden');
@@ -48,6 +50,7 @@ const openImageEditOverlay = () => {
   editImageCloseButton.addEventListener('click', onImageOverlayClose);
   imageScaleValue.value = `${DEFAULT_SCALE_VALUE}%`;
   getScaleImageTransform();
+  onFilterButtonChange();
   image.style.filter = '';
   sliderBlock.classList.add('hidden');
 };

@@ -93,24 +93,26 @@ const initEffects = () => {
 };
 
 // Создаем событие клика на радиокнопку и выбор эффекта
-let effectFilter;
-sliderBlock.classList.add('hidden');
-effectsList.addEventListener('click', (evt) => {
-  if (evt.target.matches('.effects__radio')) {
-    const effect = evt.target.value;
-    effectFilter = effects[effect];
-    sliderElement.noUiSlider.updateOptions(effectFilter);
-    if (effect === 'none') {
-      image.style.filter = '';
-      sliderBlock.classList.add('hidden');
-    } else {
-      sliderBlock.classList.remove('hidden');
+const onFilterButtonChange = () => {
+  let effectFilter;
+  sliderBlock.classList.add('hidden');
+  effectsList.addEventListener('click', (evt) => {
+    if (evt.target.matches('.effects__radio')) {
+      const effect = evt.target.value;
+      effectFilter = effects[effect];
+      sliderElement.noUiSlider.updateOptions(effectFilter);
+      if (effect === 'none') {
+        image.style.filter = '';
+        sliderBlock.classList.add('hidden');
+      } else {
+        sliderBlock.classList.remove('hidden');
+      }
+      sliderElement.noUiSlider.on('update', () => {
+        valueElement.value = sliderElement.noUiSlider.get();
+        image.style.filter = `${effectFilter.filter}(${valueElement.value}${effectFilter.unit})`;
+      });
     }
-    sliderElement.noUiSlider.on('update', () => {
-      valueElement.value = sliderElement.noUiSlider.get();
-      image.style.filter = `${effectFilter.filter}(${valueElement.value}${effectFilter.unit})`;
-    });
-  }
-});
+  });
+};
 
-export { initEffects };
+export { initEffects, onFilterButtonChange };

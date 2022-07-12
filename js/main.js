@@ -3,9 +3,7 @@ import { onImageOverlayClose } from './form.js';
 import { setUserFormSubmit } from './validation.js';
 import { getData } from './api.js';
 import { showFilteredPictures } from './filter.js';
-import './form.js';
-import './scale.js';
-import './slider.js';
+import { initEffects } from './slider.js';
 
 
 //Отправляем запрос на сервер
@@ -15,3 +13,4 @@ getData((photos) => {
 });
 
 setUserFormSubmit(onImageOverlayClose);
+initEffects();
