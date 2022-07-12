@@ -28,7 +28,7 @@ const uploadImage = () => {
 
     const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
     if (matches) {
-      imagePreview.src = URL.createObjectURL(file);
+      image.src = URL.createObjectURL(file);
     }
   });
 };
