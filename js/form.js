@@ -6,6 +6,7 @@ const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png', 'heic'];
 
 const body = document.body;
 const uploadFileInput = document.querySelector('#upload-file');
+const imageUpload = document.querySelector('.img-upload__input');
 const uploadForm = document.querySelector('.img-upload__form');
 const editImageOverlay = document.querySelector('.img-upload__overlay');
 const editImageCloseButton = editImageOverlay.querySelector('.img-upload__cancel');
@@ -31,16 +32,19 @@ const uploadImage = () => {
 };
 
 //Функция открытия окна редактирования
-const openImageEditOverlay = (evt) => {
+const openImageEditOverlay = () => {
+  imageUpload.addEventListener('change', () => {
+    uploadImage();
+    onUploadChange();
+    getScaleImageTransform();
+  });
   body.classList.add('modal-open');
   editImageOverlay.classList.remove('hidden');
   document.addEventListener('keydown', onImageOverlayEscPress);
   editImageCloseButton.addEventListener('click', onImageOverlayClose);
   imageScaleValue.value = `${DEFAULT_SCALE_VALUE}%`;
-  getScaleImageTransform();
   image.style.filter = '';
   sliderBlock.classList.add('hidden');
-  uploadImage(evt);
 };
 
 //Обработчик открытия окна редактирования
