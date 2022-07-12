@@ -22,13 +22,15 @@ const errorTemplate = document.querySelector('#error').content.querySelector('.e
 const fileChooser = document.querySelector('.img-upload__input');
 
 const uploadImage = () => {
-  const file = fileChooser.files[0];
-  const fileName = file.name.toLowerCase();
+  fileChooser.addEventListener('change', () => {
+    const file = fileChooser.files[0];
+    const fileName = file.name.toLowerCase();
 
-  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
-  if (matches) {
-    imagePreview.src = URL.createObjectURL(file);
-  }
+    const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+    if (matches) {
+      imagePreview.src = URL.createObjectURL(file);
+    }
+  });
 };
 
 //Функция открытия окна редактирования
