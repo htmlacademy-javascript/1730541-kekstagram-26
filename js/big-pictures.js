@@ -53,11 +53,12 @@ const ShowBigPhoto = (bigPhoto) => {
     const commentsArrayDataMax = [];
     for (let i = 0; i <= MAX_COMMENT - 1; i++) {
       commentsArrayDataMax.push(commentsArrayData[i]);
-      commentsLoader.classList.toggle('', bigPhoto.comments.length >= bigPhoto.comments.length);
+    }
+    if (bigPhoto.comments.length === bigPhoto.comments.length) {
+      commentsLoader.classList.toggle('hidden');
     }
     createCommentsFragment(commentsArrayDataMax);
     commentsLoader.addEventListener('click', onCommentsLoaderClick);
-    commentsLoader.classList.toggle('hidden', bigPhoto.comments.length === bigPhoto.comments.length);
   }
 };
 
