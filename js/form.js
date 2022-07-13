@@ -24,22 +24,19 @@ const fileChooser = document.querySelector('.img-upload__input');
 
 //Подстановка пользовательского изображения
 const uploadImage = () => {
-  fileChooser.addEventListener('change', () => {
-    const file = fileChooser.files[0];
-    const fileName = file.name.toLowerCase();
+  const file = fileChooser.files[0];
+  const fileName = file.name.toLowerCase();
 
-    const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
 
-    if (matches) {
-      image.src = URL.createObjectURL(file);
-    }
-  });
+  if (matches) {
+    image.src = URL.createObjectURL(file);
+  }
 };
 
 //Функция открытия окна редактирования
 const openImageEditOverlay = () => {
   imageUpload.addEventListener('change', () => {
-    uploadImage();
     onUploadChange();
     getScaleImageTransform();
     onFilterButtonChange();
@@ -53,6 +50,7 @@ const openImageEditOverlay = () => {
   onFilterButtonChange();
   image.style.filter = '';
   sliderBlock.classList.add('hidden');
+  uploadImage();
 };
 
 //Обработчик открытия окна редактирования
