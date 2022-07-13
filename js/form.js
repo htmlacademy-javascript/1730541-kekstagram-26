@@ -15,8 +15,7 @@ const inputHashtags = document.querySelector('.text__hashtags');
 const commentTextarea = document.querySelector('.text__description');
 const imageScaleValue = document.querySelector('.scale__control--value');
 const DEFAULT_SCALE_VALUE = 100;
-const imagePreview = document.querySelector('.img-upload__preview');
-const image = imagePreview.querySelector('img');
+const imagePreview = document.querySelector('.img-upload__preview').querySelector('img');
 const sliderBlock = document.querySelector('.effect-level');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');
 const errorTemplate = document.querySelector('#error').content.querySelector('.error');
@@ -24,22 +23,18 @@ const fileChooser = document.querySelector('.img-upload__input');
 
 //Подстановка пользовательского изображения
 const uploadImage = () => {
-  fileChooser.addEventListener('change', () => {
-    const file = fileChooser.files[0];
-    const fileName = file.name.toLowerCase();
-
-    const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
-
-    if (matches) {
-      image.src = URL.createObjectURL(file);
-    }
-  });
+  const file = fileChooser.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+  if (matches) {
+    imagePreview.src = URL.createObjectURL(file);
+  }
 };
 
 //Функция открытия окна редактирования
 const openImageEditOverlay = () => {
+  uploadImage();
   imageUpload.addEventListener('change', () => {
-    uploadImage();
     onUploadChange();
     getScaleImageTransform();
     onFilterButtonChange();
@@ -51,13 +46,14 @@ const openImageEditOverlay = () => {
   imageScaleValue.value = `${DEFAULT_SCALE_VALUE}%`;
   getScaleImageTransform();
   onFilterButtonChange();
-  image.style.filter = '';
+  imagePreview.style.filter = '';
   sliderBlock.classList.add('hidden');
 };
 
 //Обработчик открытия окна редактирования
 function onUploadChange() {
   openImageEditOverlay();
+  uploadImage();
 }
 uploadFileInput.addEventListener('change', onUploadChange);
 
@@ -185,4 +181,3 @@ const onErrorCloseForm = () => {
 };
 
 export { onImageOverlayClose, editImageOverlayClose, unblockSubmitButton, onErrorCloseForm, blockSubmitButton, onSuccessCloseForm };
-
