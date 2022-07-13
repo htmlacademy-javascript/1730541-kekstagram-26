@@ -1,7 +1,7 @@
 import { isEscapeEvent } from './util.js';
 
 //Задаем переменные
-const MAX_COMMENTS_TO_SHOW = 5;
+const MAX_COMMENTS = 5;
 const bigPicture = document.querySelector('.big-picture');
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
@@ -59,7 +59,7 @@ const showBigPicture = (picture) => {
 
 
   function commentsLoaderOnClick() {
-    count += MAX_COMMENTS_TO_SHOW;
+    count += MAX_COMMENTS;
     renderCommentsSlice();
   }
 
@@ -67,7 +67,7 @@ const showBigPicture = (picture) => {
     commentsContainer.innerHTML = '';
     const commentsFragment = document.createDocumentFragment();
     // создаем срез комментов, будет показываться 5 штук, при клике count перезапишется
-    const commentsToShow = picture.comments.slice(0, count + MAX_COMMENTS_TO_SHOW);
+    const commentsToShow = picture.comments.slice(0, count + MAX_COMMENTS);
     commentsToShow.forEach((comment) => {
       commentsFragment.appendChild(createCommentItem(comment));
     });
