@@ -1,4 +1,4 @@
-import { isEscapeKey } from './util.js';
+import { isEscapeEvent } from './util.js';
 
 
 const MAX_COMMENTS_TO_SHOW = 5;
@@ -31,7 +31,7 @@ const createCommentItem = (comment) => {
 const showBigPicture = (picture) => {
 
   const onPopupEscKeydown = (evt) => {
-    if (isEscapeKey(evt)) {
+    if (isEscapeEvent(evt)) {
       evt.preventDefault();
       closeBigPicture();
     }
@@ -50,8 +50,10 @@ const showBigPicture = (picture) => {
     count = 0;
   }
 
+  closeButton.addEventListener('click', onPopupCloseButtonClick);
+
+
   function commentsLoaderOnClick() {
-    // изменяем значение count прибавляя 5, следовательно slice станет (5, 10), отрисуется еще 5 штук
     count += MAX_COMMENTS_TO_SHOW;
     renderCommentsSlice();
   }
@@ -78,8 +80,6 @@ const showBigPicture = (picture) => {
 
   renderCommentsSlice();
   commentsLoader.addEventListener('click', commentsLoaderOnClick);
-
-  closeButton.addEventListener('click', onPopupCloseButtonClick);
   document.addEventListener('keydown', onPopupEscKeydown);
 };
 
