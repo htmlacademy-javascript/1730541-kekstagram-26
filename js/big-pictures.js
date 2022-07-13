@@ -10,8 +10,27 @@ const commentsList = document.querySelector('.social__comments');
 const commentElement = commentsList.querySelector('.social__comment');
 const commentsLoader = document.querySelector('.comments-loader');
 const bigPictureClose = bigPicture.querySelector('.big-picture__cancel');
-let commentsArrayData = [];
-let commentsArrayDataRemain = [];
+const commentsCount = document.querySelector('.comments-count');
+const commentListFragment = document.createDocumentFragment();
+let count = 0;
+
+// Закрытие окна полноразмерного изображения
+const closeBigPicture = () => {
+  bigPicture.classList.add('hidden');
+  body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onBigPictureEscPress);
+  bigPictureClose.removeEventListener('click', onBigPictureCloseClick);
+};
+
+// Функция закрытия окна полноразмерного изображения по Escape
+function onBigPictureEscPress(evt) {
+  isEscapeEvent(evt, closeBigPicture);
+}
+
+//Обработчик закрытия окна кликом по иконке закрытия
+function onBigPictureCloseClick() {
+  bigPictureClose.addEventListener('click', closeBigPicture);
+}
 
 // Отрисовка одного комментария
 const getBigPictureComment = (comment) => {
@@ -42,52 +61,38 @@ const ShowBigPhoto = (bigPhoto) => {
   bigPicture.querySelector('.social__caption').textContent = bigPhoto.description;
   bigPicture.classList.remove('hidden');
   document.addEventListener('keydown', onBigPictureEscPress);
-  bigPictureClose.addEventListener('click', onBigPictureCloseClick); socialCommentCount.firstChild.textContent = `${MAX_COMMENT} из `;
-  commentsArrayData = bigPhoto.comments.slice();
-  commentsArrayDataRemain = commentsArrayData.slice(MAX_COMMENT);
-  if (bigPhoto.comments.length <= MAX_COMMENT) {
-    socialCommentCount.firstChild.textContent = `${bigPhoto.comments.length} из `;
-    createCommentsFragment(commentsArrayData);
+  bigPictureClose.addEventListener('click', onBigPictureCloseClick);
+  const getCurentCommentCount = Math.floor(commentsCount / MAX_COMMENT) + Math.ceil(commentsCount % MAX_COMMENT / MAX_COMMENT);
+  if (MAX_COMMENT >= commentsCount) {
+    commentsLoader.classList.add('hidden');
   }
-  if (bigPhoto.comments.length > MAX_COMMENT) {
-    const commentsArrayDataMax = [];
-    for (let i = 0; i <= MAX_COMMENT - 1; i++) {
-      commentsArrayDataMax.push(commentsArrayData[i]);
-    }
-    if (bigPhoto.comments.length === bigPhoto.comments.length) {
-      commentsLoader.classList.toggle('hidden');
-    }
-    createCommentsFragment(commentsArrayDataMax);
-    commentsLoader.addEventListener('click', onCommentsLoaderClick);
+  else {
+    commentsLoader.classList.remove('hidden');
   }
+
+  // Функция добавления комментариев
+  const addCommentsToList = () => {
+    bigPhoto.comments.slice(count * MAX_COMMENT, (count + 1) * MAX_COMMENT).forEach((comment) => {
+      const commentElementCopy = commentElement.cloneNode(true);
+      const commentAvatar = commentElementCopy.querySelector('.social__comment .social__picture');
+      const commentMesssage = commentElementCopy.querySelector('.social__comment .social__text');
+      commentAvatar.src = comment.avatar;
+      commentAvatar.alt = comment.name;
+      commentMesssage.textContent = comment.message;
+      commentListFragment.append(commentElementCopy);
+    });
+    commentsList.append(createCommentsFragment);
+    const shownComments = (count + 1) * MAX_COMMENT <= commentsCount ? (count + 1) * MAX_COMMENT : commentsCount;
+    socialCommentCount.textContent = `${shownComments} из ${commentsCount} комментариев`;
+  };
+
+  commentsLoader.addEventListener('click', () => {
+    count++;
+    if (count === getCurentCommentCount - 1) {
+      commentsLoader.classList.add('hidden');
+    }
+    addCommentsToList();
+  });
 };
-
-
-//Проверка текущего числа комментариев
-const getCurentCommentCount = (comments) => comments ? comments.children.length : 0;
-
-//Обработчик загрузки комментариев
-function onCommentsLoaderClick() {
-  createCommentsFragment(commentsArrayDataRemain);
-  socialCommentCount.firstChild.textContent = `${getCurentCommentCount(commentsList)} из `;
-}
-
-// Закрытие окна полноразмерного изображения
-const closeBigPicture = () => {
-  bigPicture.classList.add('hidden');
-  body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onBigPictureEscPress);
-  bigPictureClose.removeEventListener('click', onBigPictureCloseClick);
-};
-
-// Функция закрытия окна полноразмерного изображения по Escape
-function onBigPictureEscPress(evt) {
-  isEscapeEvent(evt, closeBigPicture);
-}
-
-//Обработчик закрытия окна кликом по иконке закрытия
-function onBigPictureCloseClick() {
-  bigPictureClose.addEventListener('click', closeBigPicture);
-}
 
 export { ShowBigPhoto };
