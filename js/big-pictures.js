@@ -1,6 +1,6 @@
 import { isEscapeEvent } from './util.js';
 
-
+//Задаем переменные
 const MAX_COMMENTS_TO_SHOW = 5;
 const bigPicture = document.querySelector('.big-picture');
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
@@ -10,6 +10,7 @@ const commentsToShowCount = bigPicture.querySelector('.social__comment-count');
 const body = document.querySelector('body');
 let count = 0;
 
+//Создаем комментарий
 const createCommentItem = (comment) => {
   const newCommentItem = document.createElement('li');
   newCommentItem.classList.add('social__comment');
@@ -28,19 +29,20 @@ const createCommentItem = (comment) => {
   return newCommentItem;
 };
 
+//Функция открытия полноразмерного изображения
 const showBigPicture = (picture) => {
 
+  //Функция события закрытия на кнопку
   const onPopupEscKeydown = (evt) => {
-    if (isEscapeEvent(evt)) {
-      evt.preventDefault();
-      closeBigPicture();
-    }
+    isEscapeEvent(evt, closeBigPicture);
   };
 
+  //Функция события закрытия по клику
   const onPopupCloseButtonClick = () => {
     closeBigPicture();
   };
 
+  //Функция закрытия изображения
   function closeBigPicture() {
     bigPicture.classList.add('hidden');
     body.classList.remove('modal-open');
@@ -49,8 +51,11 @@ const showBigPicture = (picture) => {
     commentsLoader.removeEventListener('click', commentsLoaderOnClick);
     count = 0;
   }
-
+  //Обработчик события закрытия по клику
   closeButton.addEventListener('click', onPopupCloseButtonClick);
+
+  //Обработчик события закрытия по кнопке
+  document.addEventListener('keydown', onPopupEscKeydown);
 
 
   function commentsLoaderOnClick() {
@@ -80,7 +85,6 @@ const showBigPicture = (picture) => {
 
   renderCommentsSlice();
   commentsLoader.addEventListener('click', commentsLoaderOnClick);
-  document.addEventListener('keydown', onPopupEscKeydown);
 };
 
 export { showBigPicture };
