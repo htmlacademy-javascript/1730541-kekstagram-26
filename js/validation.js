@@ -35,6 +35,7 @@ const errorMessages = {
   BAG_SYMBOL_MESSAGE: 'Строка после решетки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы (#, @, $ и.т.п), символы пунктуации (тире, запятая, и.т.п), эмодзи'
 };
 
+//Пристин
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__text',
   errorClass: 'img-upload__text--invalid',
