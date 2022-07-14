@@ -1,4 +1,4 @@
-import { createPhotosFragment } from './picture.js';
+import { createPhotosFragment } from './drawing.js';
 import { getRandomUniqueElements, debounce } from './util.js';
 
 //Описываем переменные
