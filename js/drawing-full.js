@@ -48,7 +48,7 @@ const renderFullImage = (picture) => {
     body.classList.remove('modal-open');
     document.removeEventListener('keydown', onPopupEscKeydown);
     closeButton.removeEventListener('click', onPopupCloseButtonClick);
-    commentsLoader.removeEventListener('click', commentsLoaderOnClick);
+    commentsLoader.removeEventListener('click', commentsLoaderClickHandler);
     count = 0;
   }
   //Обработчик события закрытия по клику
@@ -58,7 +58,7 @@ const renderFullImage = (picture) => {
   document.addEventListener('keydown', onPopupEscKeydown);
 
 
-  function commentsLoaderOnClick() {
+  function commentsLoaderClickHandler() {
     count += MAX_COMMENTS;
     renderCommentsSlice();
   }
@@ -84,7 +84,7 @@ const renderFullImage = (picture) => {
   bigPicture.querySelector('.social__caption').textContent = picture.description;
 
   renderCommentsSlice();
-  commentsLoader.addEventListener('click', commentsLoaderOnClick);
+  commentsLoader.addEventListener('click', commentsLoaderClickHandler);
 };
 
 export { renderFullImage };

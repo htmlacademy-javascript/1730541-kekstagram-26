@@ -2,9 +2,11 @@ import { isEscapeEvent } from './util.js';
 import { getScaleImageTransform } from './scale.js';
 import { onFilterButtonChange } from './slider.js';
 
-//Описание переменных
+//Константы
+const DEFAULT_SCALE_VALUE = 100;
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png', 'heic'];
 
+//Переменные
 const body = document.body;
 const uploadFileInput = document.querySelector('#upload-file');
 const imageUpload = document.querySelector('.img-upload__input');
@@ -14,7 +16,6 @@ const editImageCloseButton = editImageOverlay.querySelector('.img-upload__cancel
 const inputHashtags = document.querySelector('.text__hashtags');
 const commentTextarea = document.querySelector('.text__description');
 const imageScaleValue = document.querySelector('.scale__control--value');
-const DEFAULT_SCALE_VALUE = 100;
 const imagePreview = document.querySelector('.img-upload__preview').querySelector('img');
 const sliderBlock = document.querySelector('.effect-level');
 const successTemplate = document.querySelector('#success').content.querySelector('.success');

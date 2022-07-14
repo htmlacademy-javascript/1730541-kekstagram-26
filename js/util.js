@@ -2,17 +2,15 @@ const ALERT_SHOW_TIME = 5000;
 const TIME_OUT_DELAY = 500;
 
 //Генерация числа из массива
-function getRandomPositiveInteger(a, b) {
+const getRandomPositiveInteger = (a, b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
   const result = Math.random() * (upper - lower + 1) + lower;
   return Math.floor(result);
-}
+};
 
 // Функция для проверки максимальной длины строки
-function checkStringLength(string, length) {
-  return string.length <= length;
-}
+const checkStringLength = (string, length) => string.length <= length;
 
 // Функция закрытия окна по Escape
 const isEscapeEvent = (evt, action) => {

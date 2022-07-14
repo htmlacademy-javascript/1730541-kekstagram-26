@@ -1,14 +1,17 @@
-//Описываем переменные
+//Константы
+const SCALE_STEP = 25;
+const MIN_SCALE_VALUE = 25;
+const MAX_SCALE_VALUE = 100;
+const DEFAULT_SCALE_VALUE = 100;
+
+//Переменные
 const minScaleButton = document.querySelector('.scale__control--smaller');
 const maxScaleButton = document.querySelector('.scale__control--bigger');
 const imageScaleValue = document.querySelector('.scale__control--value');
 const editImageOverlay = document.querySelector('.img-upload__overlay');
 const imagePreview = editImageOverlay.querySelector('.img-upload__preview');
 const image = imagePreview.querySelector('img');
-const SCALE_STEP = 25;
-const MIN_SCALE_VALUE = 25;
-const MAX_SCALE_VALUE = 100;
-const DEFAULT_SCALE_VALUE = 100;
+
 
 //Установка значения масштаба по умолчанию на 100%
 imageScaleValue.value = `${DEFAULT_SCALE_VALUE}%`;
@@ -18,7 +21,7 @@ const getTransformValue = () => parseInt(imageScaleValue.value, 10);
 
 //Преобразование масштаба в разметке
 const getScaleImageTransform = () => {
-  image.style.transform = `scale(${(parseInt(imageScaleValue.value, 10)/100)})`;
+  image.style.transform = `scale(${(parseInt(imageScaleValue.value, 10) / 100)})`;
 };
 
 //Уменьшение масштаба изоабражения
@@ -41,19 +44,19 @@ const getHigherValueScale = () => {
 };
 
 //Обработчик нажатия на клавишу 'уменьшение масштаба'
-function onMinButtonClick () {
+const onMinButtonClick = () => {
   getLowerValueScale();
   getScaleImageTransform();
-}
+};
 
 //Обработчик нажатия на клавишу 'увеличение масштаба'
-function onMaxButtonClick() {
+const onMaxButtonClick = () => {
   getHigherValueScale();
   getScaleImageTransform();
-}
+};
 
 //Создаем события на кнопки изменения масштаба
 minScaleButton.addEventListener('click', onMinButtonClick);
 maxScaleButton.addEventListener('click', onMaxButtonClick);
 
-export {getScaleImageTransform};
+export { getScaleImageTransform };
