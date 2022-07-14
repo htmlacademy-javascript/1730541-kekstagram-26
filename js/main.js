@@ -1,4 +1,4 @@
-import { createPhotosFragment } from './picture.js';
+import { createPhotosFragment } from './drawing.js';
 import { onImageOverlayClose } from './form.js';
 import { setUserFormSubmit } from './validation.js';
 import { getData } from './api.js';
