@@ -30,20 +30,20 @@ const createCommentItem = (comment) => {
 };
 
 //Функция открытия полноразмерного изображения
-const showBigPicture = (picture) => {
+const renderFullImage = (picture) => {
 
   //Функция события закрытия на кнопку
   const onPopupEscKeydown = (evt) => {
-    isEscapeEvent(evt, closeBigPicture);
+    isEscapeEvent(evt, closeFullImage);
   };
 
   //Функция события закрытия по клику
   const onPopupCloseButtonClick = () => {
-    closeBigPicture();
+    closeFullImage();
   };
 
   //Функция закрытия изображения
-  function closeBigPicture() {
+  function closeFullImage() {
     bigPicture.classList.add('hidden');
     body.classList.remove('modal-open');
     document.removeEventListener('keydown', onPopupEscKeydown);
@@ -87,4 +87,4 @@ const showBigPicture = (picture) => {
   commentsLoader.addEventListener('click', commentsLoaderOnClick);
 };
 
-export { showBigPicture };
+export { renderFullImage };
