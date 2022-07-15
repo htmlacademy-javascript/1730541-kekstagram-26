@@ -61,7 +61,7 @@ const setUserFormSubmit = (onSuccess) => {
           unblockSubmitButton();
         },
         () => {
-          showAlert('Не удалось отправить форму. Попробуйте ещё раз');
+          showAlert();
           onErrorCloseForm();
           unblockSubmitButton();
         },

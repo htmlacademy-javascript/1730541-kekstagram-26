@@ -1,4 +1,4 @@
-import { isEscapeEvent } from './util.js';
+import { isEscapeEvent, showAlert } from './util.js';
 import { getScaleImageTransform } from './scale.js';
 import { onFilterButtonChange } from './slider.js';
 
@@ -112,7 +112,7 @@ function onSuccessMessageCloseClick() {
 const unblockSubmitButton = () => {
   const uploadFormButton = document.querySelector('.img-upload__submit');
   uploadFormButton.disabled = false;
-  uploadFormButton.textContent = 'опубликовать';
+  uploadFormButton.textContent = 'Опубликовать';
 };
 
 //Обработчик закрытия успешной отправки формы
@@ -177,6 +177,7 @@ const onErrorCloseForm = () => {
   const errorField = document.querySelector('.error__inner');
   errorOverlay.addEventListener('click', (evt) => {
     if (evt.target !== errorField) {
+      showAlert();
       closeErrorMessage();
     }
   });
