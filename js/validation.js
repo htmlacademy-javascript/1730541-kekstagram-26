@@ -1,4 +1,4 @@
-import { checkStringLength, showAlert } from './util.js';
+import { checkStringLength } from './util.js';
 import { sendData } from './api.js';
 import { onSuccessCloseForm, onErrorCloseForm, blockSubmitButton, unblockSubmitButton } from './form.js';
 
@@ -61,7 +61,6 @@ const setUserFormSubmit = (onSuccess) => {
           unblockSubmitButton();
         },
         () => {
-          showAlert('Не удалось отправить форму. Попробуйте ещё раз');
           onErrorCloseForm();
           unblockSubmitButton();
         },

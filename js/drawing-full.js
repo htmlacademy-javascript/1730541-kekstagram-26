@@ -2,6 +2,8 @@ import { isEscapeEvent } from './util.js';
 
 //Задаем переменные
 const MAX_COMMENTS = 5;
+const COMMENT_HEIGHT = 35;
+const COMMENT_WIDTH = 35;
 const bigPicture = document.querySelector('.big-picture');
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
@@ -18,8 +20,8 @@ const createCommentItem = (comment) => {
   commentImage.classList.add('social__picture');
   commentImage.src = comment.avatar;
   commentImage.alt = comment.name;
-  commentImage.width = 35;
-  commentImage.height = 35;
+  commentImage.width = COMMENT_HEIGHT;
+  commentImage.height = COMMENT_WIDTH;
   newCommentItem.appendChild(commentImage);
 
   const commentText = document.createElement('p');
@@ -66,14 +68,13 @@ const renderFullImage = (picture) => {
   function renderCommentsSlice() {
     commentsContainer.innerHTML = '';
     const commentsFragment = document.createDocumentFragment();
-    // создаем срез комментов, будет показываться 5 штук, при клике count перезапишется
     const commentsToShow = picture.comments.slice(0, count + MAX_COMMENTS);
     commentsToShow.forEach((comment) => {
       commentsFragment.appendChild(createCommentItem(comment));
     });
     commentsContainer.appendChild(commentsFragment);
     commentsLoader.classList.toggle('hidden', picture.comments.length === commentsToShow.length);
-    commentsToShowCount.innerHTML = `${commentsToShow.length} из <span class="comments-count">${picture.comments.length}</span> комментариев`;
+    commentsToShowCount.insertAdjacentHTML = `${commentsToShow.length} из <span class="comments-count">${picture.comments.length}</span> комментариев`;
   }
 
   bigPicture.classList.remove('hidden');
